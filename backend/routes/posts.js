@@ -21,14 +21,15 @@ router.get('/', function(req, res) {
 
 //Add new post 
 router.post('/', function (req, res) {
-          var post_text = req.body.post_text;
+          var post_text = req.body.text;
+          var post_nick = req.body.nick;
           var post_time = Date.now();
           var unique_id = uuidv4();
           console.log(req.body);
           Post.update(
               {unique_id : unique_id},
-              {nick: workout_name,
-               text : workout_notes,
+              {nick: post_nick,
+               text : post_text,
                time : post_time 
               },
               {upsert : true, new: true},

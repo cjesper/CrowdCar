@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 //Material UI stuff
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+
 
 class Newpost extends Component {
     constructor(props) {
@@ -30,14 +32,16 @@ class Newpost extends Component {
         console.log(this.state);
         var data = new FormData();
         data.append('text', this.state.text_value);
+        data.append('nick', this.state.nick_value);
 
 
-        fetch('http://localhost:5000/posts', {
-          method: 'POST',
-          body : data
+        axios.post('http://localhost:5000/posts', {
+            'text': this.state.text_value,
+            'nick': this.state.nick_value
+             
         })
         .then(function (res) {
-        return res.json()
+            console.log(res); 
         })
       .then(function (json) {
         console.log(json)
@@ -50,6 +54,12 @@ class Newpost extends Component {
 
     const paper_children = [
       <div key={1} style={{margin : "2px"}}>
+        <TextField
+            onChange={this.handleNickFieldChange}
+            hintText="Name"
+            fullWidth={true}
+            multiLine={true}
+        />
         <TextField
             onChange={this.handleTextFieldChange}
             hintText="Type something!"
