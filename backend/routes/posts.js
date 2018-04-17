@@ -21,10 +21,10 @@ router.get('/', function(req, res) {
 
 //Add new post 
 router.post('/', function (req, res) {
-          var post_nick = req.body.post_nick;
           var post_text = req.body.post_text;
           var post_time = Date.now();
           var unique_id = uuidv4();
+          console.log(req.body);
           Post.update(
               {unique_id : unique_id},
               {nick: workout_name,

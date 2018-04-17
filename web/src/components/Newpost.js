@@ -9,15 +9,32 @@ class Newpost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nick_value : ""
+            nick_value : "",
             text_value : ""
         }
     }
 
-    send_post () => {
-    fetch('http://localhost:5000/posts', {
-          method: 'POST'
-          body : 
+    handleNickFieldChange = (e) => {
+      this.setState({
+        nick_value : e.target.value
+      });
+    } 
+    
+    handleTextFieldChange = (e) => {
+      this.setState({
+        text_value: e.target.value
+      });
+    } 
+
+    send_post = () => {
+        console.log(this.state);
+        var data = new FormData();
+        data.append('text', this.state.text_value);
+
+
+        fetch('http://localhost:5000/posts', {
+          method: 'POST',
+          body : data
         })
         .then(function (res) {
         return res.json()
@@ -34,11 +51,12 @@ class Newpost extends Component {
     const paper_children = [
       <div key={1} style={{margin : "2px"}}>
         <TextField
+            onChange={this.handleTextFieldChange}
             hintText="Type something!"
             fullWidth={true}
             multiLine={true}
         />
-        <RaisedButton label="Send!" primary={true} />
+        <RaisedButton label="Send!" onClick={this.send_post} primary={true} />
       </div>
     ]
     return (
