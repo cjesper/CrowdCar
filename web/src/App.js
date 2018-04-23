@@ -9,6 +9,7 @@ import Divider from 'material-ui/Divider';
 
 //Internal components
 import Newpost from './components/Newpost.js';
+import Newcommand from './components/Newcommand.js';
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
         <h2 style={{textAlign : "center"}}>Control the damn car</h2>
         <Divider />
         <Newpost />
+        <Newcommand />
       </div>
     </MuiThemeProvider>
     );
