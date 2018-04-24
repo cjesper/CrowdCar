@@ -13,17 +13,19 @@ app.use(cors());
 var mongo_url = 'mongodb://localhost:27017/crowdcar';
 
 //Remote mongo_url
-mongoose.connect(mongo_url, function (err, db) {
+var remote_mongo = "mongodb://crowdcar:crowdcar@ds255319.mlab.com:55319/crowdcar"
+mongoose.connect(remote_mongo, function (err, db) {
   if (err) {
     console.log("Unable to connect to mongo.");
   } else {
-    console.log("Mongo connection established!", mongo_url)
+    console.log("Mongo connection established!", remote_mongo)
   }
 })
 
 //Routes
 var posts = require('./routes/posts');
 var commands = require('./routes/commands');
+var chosencommands = require('./routes/chosencommand');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/posts', posts)
 app.use('/commands', commands)
+app.use('/chosencommand', chosencommands)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
