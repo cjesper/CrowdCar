@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var CommandSchema = new Schema({
     unique_id: String,
     command_name: String,
-    command_time: Date,
+    command_time: Number 
 });
 
 var Command = mongoose.model('Command', CommandSchema);

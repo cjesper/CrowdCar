@@ -7,8 +7,12 @@ var Command = require('../models/command.js');
 
 // GET all commands 
 router.get('/', function(req, res) {
+        var now = Date.now();
+        console.log(now-30);
         Command.find(
-            {}
+            {
+                 command_time: {$gte : now - 30}
+            }
           ).exec(function (err, result) {
               if (err) {
                 res.send(err);
@@ -24,7 +28,7 @@ router.post('/', function (req, res) {
           var command_name = req.body.command_name;
           var command_time = Date.now();
           var unique_id = uuidv4();
-          console.log(req.body);
+          console.log(command_time);
           Command.update(
               {unique_id : unique_id},
               {

@@ -9,7 +9,7 @@ class Newcommand extends Component {
 
     send_command = () => {
         axios.post('http://localhost:5000/commands', {
-            'command_name': "HEADLIGHTS"
+            'command_name': this.props.command_name_prop
         })
         .then(function (res) {
             console.log(res); 
@@ -24,7 +24,7 @@ class Newcommand extends Component {
   render() {
     const paper_children = [
         <div>
-            <h1 style={{textAlign : "center"}}> Turn on headlights </h1>
+            <h1 style={{textAlign : "center"}}> {this.props.command_name_prop}</h1>
             <RaisedButton label="Send!" onClick={this.send_command} secondary={true} />
         </div>
     ]

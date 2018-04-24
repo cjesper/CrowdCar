@@ -20,10 +20,10 @@ class App extends Component {
         <AppBar
             title="CrowdCar"
         />
-        <h2 style={{textAlign : "center"}}>Control the damn car</h2>
         <Divider />
-        <Newpost />
-        <Newcommand />
+        <Newcommand command_name_prop="PARTY"/>
+        <Newcommand command_name_prop="ROCK" />
+        <Newcommand command_name_prop="BREAK CAR"/>
       </div>
     </MuiThemeProvider>
     );
