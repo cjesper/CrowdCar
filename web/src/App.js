@@ -10,7 +10,7 @@ import Divider from 'material-ui/Divider';
 //Internal components
 import Newpost from './components/Newpost.js';
 import Newcommand from './components/Newcommand.js';
-
+import Progressbar from './components/Progressbar.js';
 
 class App extends Component {
 
@@ -24,7 +24,7 @@ class App extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var self = this;
         axios.get("http://localhost:5000/chosencommand/latest")
             .then(function (response) {
@@ -32,57 +32,42 @@ class App extends Component {
                 var time = response.data[0].command_time;
                 var now = Date.now() / 1000;
                 var time_until = Math.floor(time+30-now)
-                console.log(time_until);
                 self.setState({
                   current_command : cmd_name,
-                  time_until_next : time_until
+                  time_until_next : time_until,
                 })
-                self.fill_progress_bar();
+                self.poll_command_name();
             })
             .then(function (error) {
                 console.log(error)
             })
     }
-
-  /* Gradually fill progress bar */
-  fill_progress_bar = () => {
+  
+  /* Poll for new command name */
+  poll_command_name = () => {
+      var self = this;
       setInterval(() => {
-          var old_time = this.state.time_until_next;
-          if (old_time < 0.2) {
+        var old_time = self.state.time_until_next;
+        if (old_time < 1) {
             axios.get("http://localhost:5000/chosencommand/latest")
-              .then((response) => {
-                var cmd_name = response.data[0].command_name
-             
-            this.setState({
-              time_until_next: 30,
-              bar_color : "green",
-              current_command : cmd_name
+            .then(function (response) {
+                var cmd_name = response.data[0].command_name;
+                self.setState({
+                  current_command : cmd_name,
+                  time_until_next : 30
+                })
             })
-          })
-          } else {
-          //Determine color of bar
-          if (old_time < 20 && old_time > 10) {
-            this.setState({
-                bar_color : "orange"
+            .then(function (error) {
+                console.log(error)
             })
-          } else if (old_time < 10) {
-              this.setState({
-                bar_color : "red"
-              })
-          }
-          var new_time = old_time - 0.5;
-          this.setState({ 
-            time_until_next: new_time
-      });
         }
-    }, 500);
+        this.setState({
+          time_until_next : old_time - 1
+        }) 
+      }, 1000)
   }
-  render() {
-    const progress_bar_style={
-      height: "10px",
-      backgroundColor : this.state.bar_color,
-      width : this.state.time_until_next*3.33 + "%"
-    }
+
+   render() {
     return (
     <MuiThemeProvider>
       <div className="App">
@@ -91,11 +76,11 @@ class App extends Component {
         />
         <h3>Currently active command : {this.state.current_command} </h3>
         <h3>Next round in : {Math.floor(this.state.time_until_next)} </h3>
-        <div style={progress_bar_style} />
+        <Progressbar time_prop={this.state.time_until_next}/>
         <Divider />
-        <Newcommand command_name_prop="PARTY" disable_vote_prop={this.state.disable_vote} image_name_prop="party.jpg" />
-        <Newcommand command_name_prop="ROCK" disable_vote_prop={this.state.disable_vote} image_name_prop="rock.jpeg"/>
-        <Newcommand command_name_prop="BREAK CAR" disable_vote_prop={this.state.disable_vote} image_name_prop="broken_car.png"/>
+        <Newcommand current_command_prop={this.state.current_command} command_name_prop="PARTY" disable_vote_prop={this.state.disable_vote} image_name_prop="party.jpg" />
+        <Newcommand current_command_prop={this.state.current_command} command_name_prop="ROCK" disable_vote_prop={this.state.disable_vote} image_name_prop="rock.jpeg"/>
+        <Newcommand current_command_prop={this.state.current_command} command_name_prop="BREAK" disable_vote_prop={this.state.disable_vote} image_name_prop="broken_car.png"/>
       </div>
     </MuiThemeProvider>
     );

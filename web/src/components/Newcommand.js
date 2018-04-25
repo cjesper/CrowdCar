@@ -13,10 +13,10 @@ import rock from '../rock.jpeg';
 class Newcommand extends Component {
     constructor(props) {
       super(props)
-      console.log(this.props);
       this.state = {
         show_dialog : false,
-        disable_button : this.props.disable_vote_prop 
+        disable_button : this.props.disable_vote_prop,
+        border : 0 
       }
     }
     send_command = () => {
@@ -58,10 +58,25 @@ class Newcommand extends Component {
       });
     }, 5000);
     }
-
+  componentWillReceiveProps() {
+    if (this.props.current_command_prop === this.props.command_name_prop) {
+      this.setState({
+        border : 5
+      }) 
+    } else {
+      this.setState({
+        border: 0
+      })
+    }
+  }
   render() {
+    const div_style={
+      border : this.state.border + "px solid red",
+      borderRadius : "5%"
+    }
+
     const paper_children = [
-        <div>
+        <div style={div_style}>
             <img style={{width: "100%", height: "10%", maxHeight: "100px"}} src={require('../' + this.props.image_name_prop)} />
             <h1 style={{textAlign : "center"}}> {this.props.command_name_prop}</h1>
             <RaisedButton disabled={this.state.disable_button} label="VOTE!" onClick={this.send_command} secondary={true} />

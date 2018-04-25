@@ -19,8 +19,9 @@ router.get('/', function(req, res) {
     })
 });
 
-//Get the latest
+//Get the latest chosen command
 router.get('/latest', function(req, res) {
+  try {
   ChosenCommand.find({})
     .sort({ command_time : -1})
     .limit(1)
@@ -32,6 +33,9 @@ router.get('/latest', function(req, res) {
         res.send(err)
       }
     })
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 
