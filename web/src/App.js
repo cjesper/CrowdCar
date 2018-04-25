@@ -19,7 +19,8 @@ class App extends Component {
         this.state = {
             current_command : "Default",
             time_until_next : 30,
-            bar_color : "green"
+            bar_color : "green",
+            disable_vote : false,
         }
     }
 
@@ -48,10 +49,16 @@ class App extends Component {
       setInterval(() => {
           var old_time = this.state.time_until_next;
           if (old_time < 0.2) {
+            axios.get("http://localhost:5000/chosencommand/latest")
+              .then((response) => {
+                var cmd_name = response.data[0].command_name
+             
             this.setState({
               time_until_next: 30,
-              bar_color : "green"
+              bar_color : "green",
+              current_command : cmd_name
             })
+          })
           } else {
           //Determine color of bar
           if (old_time < 20 && old_time > 10) {
@@ -63,12 +70,12 @@ class App extends Component {
                 bar_color : "red"
               })
           }
-          var new_time = old_time - 0.1;
+          var new_time = old_time - 0.5;
           this.setState({ 
             time_until_next: new_time
       });
         }
-    }, 100);
+    }, 500);
   }
   render() {
     const progress_bar_style={
@@ -86,9 +93,9 @@ class App extends Component {
         <h3>Next round in : {Math.floor(this.state.time_until_next)} </h3>
         <div style={progress_bar_style} />
         <Divider />
-        <Newcommand command_name_prop="PARTY" image_name_prop="party.jpg" />
-        <Newcommand command_name_prop="ROCK" image_name_prop="rock.jpeg"/>
-        <Newcommand command_name_prop="BREAK CAR" image_name_prop="broken_car.png"/>
+        <Newcommand command_name_prop="PARTY" disable_vote_prop={this.state.disable_vote} image_name_prop="party.jpg" />
+        <Newcommand command_name_prop="ROCK" disable_vote_prop={this.state.disable_vote} image_name_prop="rock.jpeg"/>
+        <Newcommand command_name_prop="BREAK CAR" disable_vote_prop={this.state.disable_vote} image_name_prop="broken_car.png"/>
       </div>
     </MuiThemeProvider>
     );

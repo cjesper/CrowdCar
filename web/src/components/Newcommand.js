@@ -16,7 +16,7 @@ class Newcommand extends Component {
       console.log(this.props);
       this.state = {
         show_dialog : false,
-        disable_button : false
+        disable_button : this.props.disable_vote_prop 
       }
     }
     send_command = () => {
@@ -48,10 +48,17 @@ class Newcommand extends Component {
     }
 
     disable_button = () => {
+      //Prevent voting for the same for 5 seconds
       this.setState({
         disable_button: true
       })
+      setTimeout(() => {
+          this.setState({ 
+            disable_button: false 
+      });
+    }, 5000);
     }
+
   render() {
     const paper_children = [
         <div>
