@@ -20,10 +20,6 @@ router.get('/', function(req, res) {
                 res.send(err);
                 throw err;
               } else {
-                  for (var i = 0; i < result.length; i++) {
-                    var time = result[i].command_time
-                    console.log(now - time) 
-                  }
                   res.send(result);
             }
         });

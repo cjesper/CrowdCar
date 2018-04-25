@@ -25,8 +25,9 @@ class App extends Component {
         var self = this;
         axios.get("http://localhost:5000/chosencommand")
             .then(function (response) {
+                var cmd_name = response.data[0].command_name;
                 self.setState({
-                    current_command : response.data.split(" ")[0]
+                  current_command : cmd_name
                 })
             })
             .then(function (error) {
@@ -43,9 +44,9 @@ class App extends Component {
         />
         <h2>Currently active command : {this.state.current_command} </h2>
         <Divider />
-        <Newcommand command_name_prop="PARTY"/>
-        <Newcommand command_name_prop="ROCK" />
-        <Newcommand command_name_prop="BREAK CAR"/>
+        <Newcommand command_name_prop="PARTY" image_name_prop="party.jpg" />
+        <Newcommand command_name_prop="ROCK" image_name_prop="rock.jpeg"/>
+        <Newcommand command_name_prop="BREAK CAR" image_name_prop="broken_car.png"/>
       </div>
     </MuiThemeProvider>
     );
