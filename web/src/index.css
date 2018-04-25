@@ -5,7 +5,40 @@ body {
 }
 
 .progressBar {
-    -webkit-transition: width 2s; /* Safari */
-    transition: width 2s;
+    -webkit-transition: width 1s; /* Safari */
+    transition: width 1s;
     
+}
+
+.divBorder {
+    border : 10px solid red;
+      -webkit-transition : border 500ms ease-out;
+      -moz-transition : border 500ms ease-out;
+      -o-transition : border 500ms ease-out;
+      transition : border 500ms ease-out;
+
+    animation-name: flash_border;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: flash_border;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-name: flash_border;
+  -moz-animation-duration: 2s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+}
+
+@keyframes flash_border {
+  0% {
+    border-color: red;
+  }
+  50% {
+    border-color: green;
+  }
+  100% {
+    border-color: purple;
+  }
 }

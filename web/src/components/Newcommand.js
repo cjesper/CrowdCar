@@ -61,7 +61,7 @@ class Newcommand extends Component {
   componentWillReceiveProps() {
     if (this.props.current_command_prop === this.props.command_name_prop) {
       this.setState({
-        border : 5
+        border : 10
       }) 
     } else {
       this.setState({
@@ -76,7 +76,7 @@ class Newcommand extends Component {
     }
 
     const paper_children = [
-        <div style={div_style}>
+        <div class="divBorder" style={div_style}>
             <img style={{width: "100%", height: "10%", maxHeight: "100px"}} src={require('../' + this.props.image_name_prop)} />
             <h1 style={{textAlign : "center"}}> {this.props.command_name_prop}</h1>
             <RaisedButton disabled={this.state.disable_button} label="VOTE!" onClick={this.send_command} secondary={true} />
