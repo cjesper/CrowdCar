@@ -82,8 +82,7 @@ choose_command = () => {
         }
       ).exec(function (err, result) {
           if (err) {
-            res.send(err);
-            throw err;
+            console.log(err) 
           } else {
               //Party, rock, break
               let vote_vector = [0, 0, 0]

@@ -5,9 +5,8 @@ body {
 }
 
 .progressBar {
-    -webkit-transition: width 1s; /* Safari */
+    -webkit-transition: width 1s; [> Safari <]
     transition: width 1s;
-    
 }
 
 .divBorder {
@@ -40,5 +39,14 @@ body {
   }
   100% {
     border-color: purple;
+  }
+}
+
+@keyframes shrink_width {
+  0% {
+    width: 100% 
+  }
+  100% {
+    width: 0% 
   }
 }
