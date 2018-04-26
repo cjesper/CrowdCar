@@ -11,7 +11,7 @@ export default class Newcommand extends Component {
 
   //Reduce bar width every second
   componentWillReceiveProps () {
-
+    console.log(this.props);
     this.setState({
       time_left : this.props.time_prop, 
       bar_color : this.calc_bar_color(this.props.time_prop)
@@ -31,10 +31,12 @@ export default class Newcommand extends Component {
   }
   render() {
     const div_style={
+      //width : this.props.sync_time_prop*3.43 + "%",
       width : this.state.time_left*3.43 + "%",
       height: "15px",
       backgroundColor : this.state.bar_color,
-      borderRadius : "5%"
+      borderRadius : "5%",
+      transition: "width 1000ms ease-in-out"
     }
     return(
       <div class="progressBar" style={div_style} />

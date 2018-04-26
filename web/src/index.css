@@ -1,7 +1,11 @@
+* {
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 32px;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 
 .progressBar {
@@ -16,7 +20,7 @@ body {
       -o-transition : border 500ms ease-out;
       transition : border 500ms ease-out;
 
-    animation-name: flash_border;
+  animation-name: flash_border;
   animation-duration: 2s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;

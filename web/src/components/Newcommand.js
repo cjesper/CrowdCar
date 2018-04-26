@@ -77,8 +77,8 @@ class Newcommand extends Component {
 
     const paper_children = [
         <div class="divBorder" style={div_style}>
-            <img style={{width: "100%", height: "10%", maxHeight: "100px"}} src={require('../' + this.props.image_name_prop)} />
-            <h1 style={{textAlign : "center"}}> {this.props.command_name_prop}</h1>
+            <img style={{width: "100%", height: "10%", maxHeight: "100px", margin: 0}} src={require('../' + this.props.image_name_prop)} />
+            <h1 style={{margin: 0, textAlign : "center"}}> {this.props.command_name_prop}</h1>
             <RaisedButton disabled={this.state.disable_button} label="VOTE!" onClick={this.send_command} secondary={true} />
         </div>
     ]

@@ -23,6 +23,7 @@ class App extends Component {
             bar_color : "green",
             disable_vote : false,
             open_dialog : true,
+            sync_time : 30
         }
     }
 
@@ -43,6 +44,7 @@ class App extends Component {
                 self.setState({
                   current_command : cmd_name,
                   time_until_next : time_until,
+                  sync_time : time_until
                 })
                 self.poll_command_name();
             })
@@ -62,7 +64,8 @@ class App extends Component {
                 var cmd_name = response.data[0].command_name;
                 self.setState({
                   current_command : cmd_name,
-                  time_until_next : 30
+                  time_until_next : 30,
+                  sync_time : 30
                 })
             })
             .then(function (error) {
@@ -86,15 +89,19 @@ class App extends Component {
       color: "white",
       fontSize: "28px"
     }
+
+    const header_style = {
+      margin : 0
+    }
     return (
     <MuiThemeProvider>
       <div className="App">
         <div style={div_style}>
           CrowdCar
         </div>
-        <h3>Now Running: {this.state.current_command} </h3>
-        <h3>Next round in : {Math.floor(this.state.time_until_next)} </h3>
-        <Progressbar time_prop={this.state.time_until_next}/>
+        <h3 style={header_style}> Now Running: {this.state.current_command} </h3>
+        <h3 style={header_style}> Next round in : {Math.floor(this.state.time_until_next)} </h3>
+        <Progressbar sync_time_prop={this.state.sync_time} time_prop={this.state.time_until_next}/>
         <Divider />
         <Newcommand current_command_prop={this.state.current_command} command_name_prop="PARTY" disable_vote_prop={this.state.disable_vote} image_name_prop="party.jpg" />
         <Newcommand current_command_prop={this.state.current_command} command_name_prop="ROCK" disable_vote_prop={this.state.disable_vote} image_name_prop="rock.jpeg"/>
