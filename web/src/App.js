@@ -19,11 +19,11 @@ class App extends Component {
         super(props)
         this.state = {
             current_command : "Default",
-            time_until_next : 30,
+            time_until_next : 15,
             bar_color : "green",
             disable_vote : false,
             open_dialog : true,
-            sync_time : 30
+            sync_time : 15
         }
     }
 
@@ -40,7 +40,7 @@ class App extends Component {
                 var cmd_name = response.data[0].command_name;
                 var time = response.data[0].command_time;
                 var now = Date.now() / 1000;
-                var time_until = Math.floor(time+30-now)
+                var time_until = Math.floor(time+15-now)
                 self.setState({
                   current_command : cmd_name,
                   time_until_next : time_until,
@@ -64,8 +64,8 @@ class App extends Component {
                 var cmd_name = response.data[0].command_name;
                 self.setState({
                   current_command : cmd_name,
-                  time_until_next : 30,
-                  sync_time : 30
+                  time_until_next : 15,
+                  sync_time : 15
                 })
             })
             .then(function (error) {
@@ -106,6 +106,7 @@ class App extends Component {
         <Newcommand current_command_prop={this.state.current_command} command_name_prop="PARTY" disable_vote_prop={this.state.disable_vote} image_name_prop="party.jpg" />
         <Newcommand current_command_prop={this.state.current_command} command_name_prop="ROCK" disable_vote_prop={this.state.disable_vote} image_name_prop="rock.jpeg"/>
         <Newcommand current_command_prop={this.state.current_command} command_name_prop="BREAK" disable_vote_prop={this.state.disable_vote} image_name_prop="broken_car.png"/>
+        <Newcommand current_command_prop={this.state.current_command} command_name_prop="WEDDING" disable_vote_prop={this.state.disable_vote} image_name_prop="wedding.jpg"/>
       <Dialog
           open={this.state.open_dialog}
           title="Vote for what the car should do next!"

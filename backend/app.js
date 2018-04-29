@@ -75,17 +75,17 @@ choose_command = () => {
   console.log("CALC")
     var now = Date.now() / 1000;
 
-    //Query for events elapsed in the last 30 seconds
+    //Query for events elapsed in the last 15 seconds
     Command.find(
         {
-             command_time: {$gte : now - 30}
+             command_time: {$gte : now - 15}
         }
       ).exec(function (err, result) {
           if (err) {
             console.log(err) 
           } else {
               //Party, rock, break
-              let vote_vector = [0, 0, 0]
+              let vote_vector = [0, 0, 0, 0]
               for (var i = 0; i < result.length; i++) {
                 var vote = result[i].command_name
                 if (vote == "PARTY") {
@@ -94,6 +94,8 @@ choose_command = () => {
                     vote_vector[1]++; 
                 } else if (vote == "BREAK CAR") {
                     vote_vector[2]++;
+                } else if (vote == "WEDDING") {
+                    vote_vector[3]++;
                 }
               }
               var winning_vote = findIndexOfGreatest(vote_vector);
@@ -104,6 +106,8 @@ choose_command = () => {
                 winner_name = "ROCK"
               } else if (winning_vote === 2) {
                 winner_name = "BREAK"
+              } else if (winning_vote === 3) {
+                winner_name = "WEDDING"
               }
               console.log(winner_name + " with " + vote_vector[winning_vote] + " votes!");
               var command_id = uuidv4(); 
@@ -135,6 +139,7 @@ function findIndexOfGreatest(array) {
       indexOfGreatest = i;
     }
   }
+    console.log(indexOfGreatest);
   return indexOfGreatest;
 }
 
@@ -142,7 +147,7 @@ function findIndexOfGreatest(array) {
 //Calculate the chosen command, in 30 second intervals
 setInterval(() => {
     choose_command() 
-}, 30000);
+}, 15000);
 
 app.listen(5000, () =>
   console.log("Listening on 5000"));

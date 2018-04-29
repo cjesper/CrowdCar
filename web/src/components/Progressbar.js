@@ -19,11 +19,11 @@ export default class Newcommand extends Component {
   }
 
   calc_bar_color = (time) => {
-    if (time > 20) {
+    if (time > 10) {
       return "green";
-    } else if (time <= 20 && time > 10) {
+    } else if (time <= 10 && time > 5) {
       return "orange";
-    } else if (time <= 10) {
+    } else if (time <= 5) {
       return "red";
     } else {
       return "black"
@@ -32,7 +32,7 @@ export default class Newcommand extends Component {
   render() {
     const div_style={
       //width : this.props.sync_time_prop*3.43 + "%",
-      width : this.state.time_left*3.43 + "%",
+      width : this.state.time_left*6.43 + "%",
       height: "15px",
       backgroundColor : this.state.bar_color,
       borderRadius : "5%",
