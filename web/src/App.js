@@ -7,11 +7,13 @@ import axios from 'axios'
 import AppBar from 'material-ui/AppBar';
 import Divider from 'material-ui/Divider';
 import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
 
 //Internal components
 import Newpost from './components/Newpost.js';
 import Newcommand from './components/Newcommand.js';
 import Progressbar from './components/Progressbar.js';
+import Stats from './components/Stats.js';
 
 class App extends Component {
 
@@ -78,6 +80,19 @@ class App extends Component {
       }, 1000)
   }
 
+  show_stats = () => {
+    var self = this;
+    self.setState({
+      show_stats : true
+    });
+  }
+  
+  dialog_callback = () => {
+    var self = this;
+    self.setState({
+      show_stats : false
+    });
+  }
    render() {
 
     const div_style = {
@@ -100,6 +115,11 @@ class App extends Component {
           CrowdCar
         </div>
         <h3 style={header_style}> Now Running: {this.state.current_command} </h3>
+        <RaisedButton 
+          label="Show Votes"
+          primary={true}
+          onClick={this.show_stats}
+        />
         <h3 style={header_style}> Next round in : {Math.floor(this.state.time_until_next)} </h3>
         <Progressbar sync_time_prop={this.state.sync_time} time_prop={this.state.time_until_next}/>
         <Divider />
@@ -111,6 +131,7 @@ class App extends Component {
           open={this.state.open_dialog}
           title="Vote for what the car should do next!"
         />
+        <Stats show={this.state.show_stats} cb={this.dialog_callback}/>
       </div>
     </MuiThemeProvider>
     );

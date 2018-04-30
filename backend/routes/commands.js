@@ -25,6 +25,42 @@ router.get('/', function(req, res) {
         });
 });
 
+
+//Get stats about which command will be chosen
+router.get('/stats', function (req, res) {
+    var now = Date.now() / 1000;
+    Command.find(
+        {
+             command_time: {$gte : now - 15}
+        }
+      ).exec(function (err, result) {
+          if (err) {
+            console.log(err) 
+          } else {
+              console.log("KAFF");
+              //Party, rock, break
+              let vote_vector = [0, 0, 0, 0]
+              for (var i = 0; i < result.length; i++) {
+                var vote = result[i].command_name
+                console.log(vote);
+                if (vote == "PARTY") {
+                    vote_vector[0]++;
+                } else if (vote == "ROCK") {
+                    vote_vector[1]++; 
+                } else if (vote == "BREAK") {
+                    vote_vector[2]++;
+                } else if (vote == "WEDDING") {
+                    vote_vector[3]++;
+                }
+              }
+              console.log(vote_vector);
+              res.send(vote_vector);
+          }
+      });
+});
+
+
+
 //Add new command 
 router.post('/', function (req, res) {
           var command_name = req.body.command_name;

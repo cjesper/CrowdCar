@@ -13,6 +13,9 @@ body {
     transition: width 1s;
 }
 
+#stats_button {
+  color: black;
+}
 .divBorder {
     border : 10px solid red;
       -webkit-transition : border 500ms ease-out;

@@ -11,7 +11,6 @@ export default class Newcommand extends Component {
 
   //Reduce bar width every second
   componentWillReceiveProps () {
-    console.log(this.props);
     this.setState({
       time_left : this.props.time_prop, 
       bar_color : this.calc_bar_color(this.props.time_prop)

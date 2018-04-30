@@ -74,7 +74,6 @@ app.use(function(err, req, res, next) {
 choose_command = () => {
   console.log("CALC")
     var now = Date.now() / 1000;
-
     //Query for events elapsed in the last 15 seconds
     Command.find(
         {
