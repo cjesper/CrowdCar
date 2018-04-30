@@ -88,11 +88,12 @@ choose_command = () => {
               let vote_vector = [0, 0, 0, 0]
               for (var i = 0; i < result.length; i++) {
                 var vote = result[i].command_name
+                console.log(vote);
                 if (vote == "PARTY") {
                     vote_vector[0]++;
                 } else if (vote == "ROCK") {
                     vote_vector[1]++; 
-                } else if (vote == "BREAK CAR") {
+                } else if (vote == "BREAK") {
                     vote_vector[2]++;
                 } else if (vote == "WEDDING") {
                     vote_vector[3]++;
@@ -109,6 +110,7 @@ choose_command = () => {
               } else if (winning_vote === 3) {
                 winner_name = "WEDDING"
               }
+              console.log(vote_vector);
               console.log(winner_name + " with " + vote_vector[winning_vote] + " votes!");
               var command_id = uuidv4(); 
               ChosenCommand.update(

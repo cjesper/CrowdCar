@@ -29,14 +29,25 @@ export default class Newcommand extends Component {
       return "black"
     }
   }
+
+  calc_width = (time) => {
+    if (time >= 2) {
+      return time*6.6;
+    } else if (time == 0) {
+        return 100;
+    } else {
+      return 0;
+    }
+  }
+
   render() {
+
     const div_style={
-      //width : this.props.sync_time_prop*3.43 + "%",
-      width : this.state.time_left*6.43 + "%",
+      width : this.calc_width(this.state.time_left)+"%",
       height: "15px",
       backgroundColor : this.state.bar_color,
       borderRadius : "5%",
-      transition: "width 1000ms ease-in-out"
+      //transition: "width 1000ms"
     }
     return(
       <div class="progressBar" style={div_style} />
